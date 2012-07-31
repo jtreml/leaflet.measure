@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="leaflet/leaflet.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="leaflet/leaflet.ie.css" /><![endif]-->
+		<link rel="stylesheet" href="leaflet.measure/leaflet.measure.css" />
+
+		<script src="leaflet/leaflet.js"></script>
+		<script src="leaflet.measure/leaflet.measure.js"></script>
+	</head>
+	
+	<body>
+		<div id="map" style="width: 640px; height: 480px;"></div>
+
+		<script type="text/javascript">
+			var layerOsm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	          subdomains: ["a", "b", "c"],
+	          maxZoom: 18
+	        });
+			
+			var map = new L.Map('map', {
+				measureControl: true
+			}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
+		</script>
+	</body>
+</html>
