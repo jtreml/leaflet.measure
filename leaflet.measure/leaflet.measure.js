@@ -96,16 +96,18 @@ L.Control.Measure = L.Control.extend({
 			this._layerPaintPathTemp.spliceLatLngs(0, 2, this._lastPoint, e.latlng);
 		}
 
-		if(this._tooltip) {
-			if(!this._distance) {
-				this._distance = 0;
-			}
-
-			this._updateTooltipPosition(e.latlng);
-
-			var distance = e.latlng.distanceTo(this._lastPoint);
-			this._updateTooltipDistance(this._distance + distance, distance);
+		if(!this._tooltip) {
+			this._createTooltip(e.latlng);
 		}
+
+		if(!this._distance) {
+			this._distance = 0;
+		}
+
+		this._updateTooltipPosition(e.latlng);
+
+		var distance = e.latlng.distanceTo(this._lastPoint);
+		this._updateTooltipDistance(this._distance + distance, distance);
 	},
 
 	_mouseClick: function(e) {
@@ -120,12 +122,15 @@ L.Control.Measure = L.Control.extend({
 				this._distance = 0;
 			}
 
+			this._updateTooltipPosition(e.latlng);
+
 			var distance = e.latlng.distanceTo(this._lastPoint);
 			this._updateTooltipDistance(this._distance + distance, distance);
 
 			this._distance += distance;
 		}
-		this._createTooltip(e.latlng);
+		this._tooltip = undefined;
+		
 
 		// If this is already the second click, add the location to the fix path (create one first if we don't have one)
 		if(this._lastPoint && !this._layerPaintPath) {
