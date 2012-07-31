@@ -205,7 +205,7 @@ L.Control.Measure = L.Control.extend({
 			differenceRound = this._round(difference);
 
 		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + ' nm</div>';
-		if(totalRound != differenceRound) {
+		if(differenceRound > 0 && totalRound != differenceRound) {
 			text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + ' nm)</div>';
 		}
 
