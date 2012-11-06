@@ -1,6 +1,7 @@
 L.Control.Measure = L.Control.extend({
 	options: {
-		position: 'topleft'
+		position: 'topleft',
+        measureUnit: 'nm'
 	},
 
 	onAdd: function (map) {
@@ -204,20 +205,33 @@ L.Control.Measure = L.Control.extend({
 	},
 
 	_updateTooltipDistance: function(total, difference) {
-		var totalRound = this._round(total),
-			differenceRound = this._round(difference);
+        var totalRound;
+        var differenceRound;
+        var measureUnit = this.options.measureUnit;
+        if (measureUnit == "m") {
+            totalRound = this._round(total);
+            differenceRound = this._round(difference);
+        }
+        if (measureUnit == "nm") {
+            totalRound = this._roundToNM(total);
+            differenceRound = this._roundToNM(difference);
+        }
 
-		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + ' nm</div>';
-		if(differenceRound > 0 && totalRound != differenceRound) {
-			text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + ' nm)</div>';
-		}
+        var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + measureUnit + '</div>';
+        if (differenceRound > 0 && totalRound != differenceRound) {
+            text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + measureUnit + ')</div>';
+        }
 
-		this._tooltip._icon.innerHTML = text;
+        this._tooltip._icon.innerHTML = text;
 	},
 
-	_round: function(val) {
-		return Math.round((val / 1852) * 10) / 10;
-	},
+    _roundToNM: function (val) {
+        return Math.round((val / 1852) * 10) / 10;
+    },
+
+    _round: function (val) {
+        return Math.round(val);
+    },
 
 	_onKeyDown: function (e) {
 		if(e.keyCode == 27) {
