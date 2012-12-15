@@ -1,8 +1,29 @@
-Leaflet measure control
-=======================
+# Rails-leaflet-measure
 
-Adds a button below the map's zoom controls that allows you to activate an interactive mode to measure distances on the map.
+Rails gem for easily using https://github.com/jtreml/leaflet.measure
 
-More info coming soon...
+## Installation
 
-For a demo see [here](http://jtreml.github.com/leaflet.measure/example.html).
+Add this line to your application's Gemfile:
+
+    gem 'rails-leaflet-measure'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install rails-leaflet-measure
+
+## Usage
+
+TODO: Write usage instructions here
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
