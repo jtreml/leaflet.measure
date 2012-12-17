@@ -6,15 +6,25 @@ Rails gem for easily using https://github.com/jtreml/leaflet.measure
 
 Add this line to your application's Gemfile:
 
-    gem 'rails-leaflet-measure'
+    gem 'rails-leaflet-measure', :git => "git://github.com/lamont-granquist/rails-leaflet-measure.git"
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Add to your application.js file:
 
-    $ gem install rails-leaflet-measure
+     //= require leaflet.measure
+
+Add to your application.css file:
+
+    *= require leaflet.measure
+
+Add to your leaflet map's javascript:
+
+    map = new L.map('map', {
+      measureControl: true
+    })
 
 ## Usage
 
