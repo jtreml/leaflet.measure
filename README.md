@@ -26,6 +26,10 @@ Add to your leaflet map's javascript:
       measureControl: true
     })
 
+## Note: nm to ft
+
+I changed nautical miles in the original plugin to feet because that's what I need.
+
 ## Usage
 
 TODO: Write usage instructions here
