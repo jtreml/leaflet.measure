@@ -30,6 +30,8 @@ Add to your leaflet map's javascript:
 
 I changed nautical miles in the original plugin to feet because that's what I need.
 
+See this commit:  https://github.com/lamont-granquist/rails-leaflet-measure/commit/9f9382c876fac1833dbabe07f35cc1a1afdb40b7
+
 ## Usage
 
 TODO: Write usage instructions here
