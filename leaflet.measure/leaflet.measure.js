@@ -1,7 +1,7 @@
 L.Control.Measure = L.Control.extend({
 	options: {
 		position: 'topleft',
-        measureUnit: 'nm'
+        measureUnit: 'm'
 	},
 
 	onAdd: function (map) {
