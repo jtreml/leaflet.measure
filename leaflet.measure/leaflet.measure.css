@@ -2,8 +2,8 @@
 	background-image: url(images/icon-measure.png);
 	}
 
-.leaflet-control-measure-on {
-	background-color: #B0DE5C !important;
+.leaflet-control-measure-on .leaflet-control-measure {
+	box-shadow: 0 0 8px rgba(10,10,10,1.0);
 	}
 
 .leaflet-measure-tooltip {

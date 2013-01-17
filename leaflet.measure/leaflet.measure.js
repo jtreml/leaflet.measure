@@ -7,7 +7,7 @@ L.Control.Measure = L.Control.extend({
 		var className = 'leaflet-control-zoom',
 		    container = L.DomUtil.create('div', className);
 
-		this._createButton('Measure', 'leaflet-control-measure', container, this._toggleMeasure, this);
+		this._createButton('Measure', 'leaflet-control-measure leaflet-bar leaflet-bar-part', container, this._toggleMeasure, this);
 
 		return container;
 	},
