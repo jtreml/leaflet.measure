@@ -154,10 +154,11 @@ L.Control.Measure = L.Control.extend({
 			opacity: 1, 
 			weight: 1, 
 			fill: true, 
-			fillOpacity: 1, 
+			fillOpacity: 1,
+			radius:2,
 			clickable: this._lastCircle ? true : false
-		}).setRadius(2).addTo(this._layerPaint);
-
+		}).addTo(this._layerPaint);
+		
 		this._lastCircle.on('click', function() { this._finishPath(); }, this);
 
 		// Save current location as last location
