@@ -271,4 +271,6 @@
         return new L.Control.Measure(options);
     };
 
+    return L.Control.Measure;
+
 }));
