@@ -3,13 +3,13 @@
 	<head>
 		<link rel="stylesheet" href="leaflet/dist/leaflet.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="leaflet/dist/leaflet.ie.css" /><![endif]-->
-		<link rel="stylesheet" href="leaflet.measure/leaflet.measure.css" />
+		<link rel="stylesheet" href="dist/leaflet.measure.css" />
 
 		<script src="leaflet/build/deps.js"></script>
 		<script src="leaflet/debug/leaflet-include.js"></script>
-		<script src="leaflet.measure/leaflet.measure.js"></script>
+		<script src="dist/Leaflet.Measure.js"></script>
 	</head>
-	
+
 	<body>
 		<div id="map" style="width: 800px; height: 600px;"></div>
 
@@ -18,7 +18,7 @@
 	          subdomains: ["a", "b", "c"],
 	          maxZoom: 18
 	        });
-			
+
 			var map = new L.Map('map', {
 				measureControl: true
 			}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
