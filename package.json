@@ -15,7 +15,7 @@
         "leaflet",
         "map",
         "vector",
-        "measure",
+        "measure"
     ],
     "author": {
         "name": "Jürgen Treml"

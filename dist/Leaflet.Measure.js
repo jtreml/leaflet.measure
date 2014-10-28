@@ -18,7 +18,8 @@
 
     L.Control.Measure = L.Control.extend({
         options: {
-            position: 'topleft'
+            position: 'topleft',
+            zIndexOffset: 2000
         },
 
         onAdd: function(map) {
@@ -66,11 +67,24 @@
             this._doubleClickZoom = this._map.doubleClickZoom.enabled();
             this._map.doubleClickZoom.disable();
 
+            if (!this._mouseMarker) {
+                this._mouseMarker = new L.Marker(this._map.getCenter(), {
+                    icon: L.divIcon({
+                        className: 'leaflet-mouse-marker',
+                        iconAnchor: [20, 20],
+                        iconSize: [40, 40]
+                    }),
+                    opacity: 0,
+                    zIndexOffset: this.options.zIndexOffset
+                }).addTo(this._map);
+            }
+
             L.DomEvent
                 .on(this._map, 'mousemove', this._mouseMove, this)
-                .on(this._map, 'click', this._mouseClick, this)
-                .on(this._map, 'dblclick', this._finishPath, this)
                 .on(document, 'keydown', this._onKeyDown, this);
+
+            this._mouseMarker.on('click', this._mouseClick, this)
+                .on('dblclick', this._finishPath, this);
 
             if (!this._layerPaint) {
                 this._layerPaint = L.layerGroup().addTo(this._map);
@@ -86,9 +100,10 @@
 
             L.DomEvent
                 .off(document, 'keydown', this._onKeyDown, this)
-                .off(this._map, 'mousemove', this._mouseMove, this)
-                .off(this._map, 'click', this._mouseClick, this)
-                .off(this._map, 'dblclick', this._mouseClick, this);
+                .off(this._map, 'mousemove', this._mouseMove, this);
+
+            this._mouseMarker.off('mousedown', this._mouseClick, this)
+                .off('dblclick', this._finishPath, this);
 
             if (this._doubleClickZoom) {
                 this._map.doubleClickZoom.enable();
@@ -102,6 +117,10 @@
         },
 
         _mouseMove: function(e) {
+            if (this._mouseMarker) {
+                this._mouseMarker.setLatLng(e.latlng);
+            }
+
             if (!e.latlng || !this._lastPoint) {
                 return;
             }
@@ -197,6 +216,10 @@
             }
             if (this._layerPaint && this._layerPaintPathTemp) {
                 this._layerPaint.removeLayer(this._layerPaintPathTemp);
+            }
+
+            if (this._mouseMarker) {
+                this._map.removeLayer(this._mouseMarker);
             }
 
             // Reset everything
