@@ -102,8 +102,10 @@
                 .off(document, 'keydown', this._onKeyDown, this)
                 .off(this._map, 'mousemove', this._mouseMove, this);
 
-            this._mouseMarker.off('mousedown', this._mouseClick, this)
-                .off('dblclick', this._finishPath, this);
+            if(this._mouseMarker) {
+                this._mouseMarker.off('mousedown', this._mouseClick, this)
+                    .off('dblclick', this._finishPath, this);
+            }
 
             if (this._doubleClickZoom) {
                 this._map.doubleClickZoom.enable();
