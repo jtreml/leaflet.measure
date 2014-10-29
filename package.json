@@ -1,0 +1,30 @@
+{
+    "name": "leaflet.measure",
+    "version": "0.0.1",
+    "description": "Adds interactive distance measuring to leaflet",
+    "main": "./dist/Leaflet.Measure.js",
+    "scripts": {
+        "build": "./node_modules/uglify-js/bin/uglifyjs ./dist/Leaflet.Measure.js -cm > ./dist/Leaflet.Measure.min.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jtreml/leaflet.measure.git"
+    },
+    "keywords": [
+        "leaflet",
+        "map",
+        "vector",
+        "measure"
+    ],
+    "author": {
+        "name": "Jürgen Treml"
+    },
+    "bugs": {
+        "url": "https://github.com/jtreml/leaflet.measure/issues"
+    },
+    "homepage": "https://w8r.github.io/leaflet.measure/example.html",
+    "devDependencies": {
+        "uglify-js": "^2.4.15"
+    }
+}
