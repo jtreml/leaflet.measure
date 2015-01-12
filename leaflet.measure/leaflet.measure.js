@@ -206,12 +206,13 @@ L.Control.Measure = L.Control.extend({
 	},
 
 	_updateTooltipDistance: function(total, difference) {
-		var totalRound = this._round(total),
-			differenceRound = this._round(difference);
+    var nm_to_km = 1.852;
+		var totalRound = this._round(total * nm_to_km),
+			differenceRound = this._round(difference * nm_to_km);
 
-		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + ' nm</div>';
+		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + ' km</div>';
 		if(differenceRound > 0 && totalRound != differenceRound) {
-			text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + ' nm)</div>';
+			text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + ' km)</div>';
 		}
 
 		this._tooltip._icon.innerHTML = text;
