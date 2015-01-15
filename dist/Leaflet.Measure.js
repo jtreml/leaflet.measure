@@ -235,6 +235,7 @@
             this._lastPoint = undefined;
             this._layerPaintPath = undefined;
             this._layerPaintPathTemp = undefined;
+            this._mouseMarker = undefined;
         },
 
         _createTooltip: function(position) {
