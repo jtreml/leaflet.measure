@@ -22,6 +22,16 @@
 			var map = new L.Map('map', {
 				measureControl: true
 			}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
+
+			map.on('measure:measurestop', function(e) {
+				console.log("stop");
+				console.log(e);
+			});
+			map.on('measure:measurestart', function(e) {
+				console.log("start");
+				console.log(e);
+			});
+
 		</script>
 	</body>
 </html>
