@@ -18,9 +18,12 @@
 	          maxZoom: 18
 	        });
 			
-			var map = new L.Map('map', {
-				measureControl: true
-			}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
+			var map = new L.Map('map').addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
+			var measureControl = new L.Control.Measure({
+				position: 'topleft',
+				measureUnit: 'm'
+			});
+			measureControl.addTo(map);
 		</script>
 	</body>
 </html>
