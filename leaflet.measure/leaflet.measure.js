@@ -233,9 +233,6 @@ L.Control.Measure = L.Control.extend({
 			totalRound /=  1000;
 			differenceRound	/=  1000;
 			break;				
-		default:
-			totalRound = this._round(total);
-			differenceRound = this._round(difference);
 	}
 
 	totalRound = Math.round(totalRound, 2);
