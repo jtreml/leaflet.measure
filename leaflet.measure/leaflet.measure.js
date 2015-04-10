@@ -239,7 +239,7 @@ L.Control.Measure = L.Control.extend({
 	}
 
 	totalRound = Math.round(totalRound, 2);
-	differencRound = Math.round(differenceRound, 2);
+	differenceRound = Math.round(differenceRound, 2);
        
         var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + measureUnit + '</div>';
         if (differenceRound > 0 && totalRound != differenceRound) {
