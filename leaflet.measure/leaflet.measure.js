@@ -210,15 +210,34 @@ L.Control.Measure = L.Control.extend({
         var totalRound;
         var differenceRound;
         var measureUnit = this.options.measureUnit;
-        if (measureUnit == "m") {
-            totalRound = this._round(total);
-            differenceRound = this._round(difference);
-        }
-        if (measureUnit == "nm") {
-            totalRound = this._roundToNM(total);
-            differenceRound = this._roundToNM(difference);
-        }
+       
+       //extensible option for multiple units
+       	switch(measureUnit){
+		case "nm":  
+			totalRound *= 0.00053996;
+			differenceRound	*= 0.00053996;
+			break;
+		case "ft":
+			totalRound *= 3.2808;
+			differenceRound	*= 3.2808;
+			break;
+		case "yd":
+			totalRound *=  1.0936;
+			differenceRound	*=  1.0936;
+			break;		
+		case "mi":
+			totalRound *=  0.00062137;
+			differenceRound	*=  0.00062137;
+			break;		
+		case "km":
+			totalRound /=  1000;
+			differenceRound	/=  1000;
+			break;				
+	}
 
+	totalRound = Math.round(totalRound, 2);
+	differenceRound = Math.round(differenceRound, 2);
+       
         var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + measureUnit + '</div>';
         if (differenceRound > 0 && totalRound != differenceRound) {
             text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + measureUnit + ')</div>';
@@ -226,14 +245,6 @@ L.Control.Measure = L.Control.extend({
 
         this._tooltip._icon.innerHTML = text;
 	},
-
-    _roundToNM: function (val) {
-        return Math.round((val / 1852) * 10) / 10;
-    },
-
-    _round: function (val) {
-        return Math.round(val);
-    },
 
 	_onKeyDown: function (e) {
 		if(e.keyCode == 27) {
