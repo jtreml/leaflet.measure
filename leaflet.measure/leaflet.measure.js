@@ -52,6 +52,8 @@ L.Control.Measure = L.Control.extend({
 			.on(this._map, 'click', this._mouseClick, this)
 			.on(this._map, 'dblclick', this._finishPath, this)
 			.on(document, 'keydown', this._onKeyDown, this);
+      
+    	this._map.fire('measure:measurestart', { layerType: this.type });
 
 		if(!this._layerPaint) {
 			this._layerPaint = L.layerGroup().addTo(this._map);	
@@ -70,6 +72,8 @@ L.Control.Measure = L.Control.extend({
 			.off(this._map, 'mousemove', this._mouseMove, this)
 			.off(this._map, 'click', this._mouseClick, this)
 			.off(this._map, 'dblclick', this._mouseClick, this);
+
+    	this._map.fire('measure:measurestop', { layerType: this.type });
 
 		if(this._doubleClickZoom) {
 			this._map.doubleClickZoom.enable();
@@ -207,43 +211,45 @@ L.Control.Measure = L.Control.extend({
 	},
 
 	_updateTooltipDistance: function(total, difference) {
-        var totalRound;
-        var differenceRound;
-        var measureUnit = this.options.measureUnit;
-       
-       //extensible option for multiple units
-       	switch(measureUnit){
-		case "nm":  
-			totalRound *= 0.00053996;
-			differenceRound	*= 0.00053996;
-			break;
-		case "ft":
-			totalRound *= 3.2808;
-			differenceRound	*= 3.2808;
-			break;
-		case "yd":
-			totalRound *=  1.0936;
-			differenceRound	*=  1.0936;
-			break;		
-		case "mi":
-			totalRound *=  0.00062137;
-			differenceRound	*=  0.00062137;
-			break;		
-		case "km":
-			totalRound /=  1000;
-			differenceRound	/=  1000;
-			break;				
-	}
+		var totalRound;
+		var differenceRound;
+		var measureUnit = this.options.measureUnit;
 
-	totalRound = Math.round(totalRound, 2);
-	differenceRound = Math.round(differenceRound, 2);
-       
-        var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + measureUnit + '</div>';
-        if (differenceRound > 0 && totalRound != differenceRound) {
-            text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + measureUnit + ')</div>';
-        }
+		//extensible option for multiple units
+		switch(measureUnit){
+			case "nm":  
+				totalRound *= 0.00053996;
+				differenceRound	*= 0.00053996;
+				break;
+			case "ft":
+				totalRound *= 3.2808;
+				differenceRound	*= 3.2808;
+				break;
+			case "yd":
+				totalRound *=  1.0936;
+				differenceRound	*=  1.0936;
+				break;
+			case "mi":
+				totalRound *=  0.00062137;
+				differenceRound	*=  0.00062137;
+				break;
+			case "km":
+				totalRound /=  1000;
+				differenceRound	/=  1000;
+				break;
+			default:
+				console.error("Unit: "+measureUnit+" is not supportet by Leaflet.Measure");
+		}
 
-        this._tooltip._icon.innerHTML = text;
+		totalRound = Math.round(totalRound, 2);
+		differenceRound = Math.round(differenceRound, 2);
+
+		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + measureUnit + '</div>';
+		if (differenceRound > 0 && totalRound != differenceRound) {
+			text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + measureUnit + ')</div>';
+		}
+
+		this._tooltip._icon.innerHTML = text;
 	},
 
 	_onKeyDown: function (e) {
