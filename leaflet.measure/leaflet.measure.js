@@ -218,31 +218,35 @@ L.Control.Measure = L.Control.extend({
 		//extensible option for multiple units
 		switch(measureUnit){
 			case "nm":  
-				totalRound *= 0.00053996;
-				differenceRound	*= 0.00053996;
+				total *= 0.00053996;
+				difference	*= 0.00053996;
 				break;
 			case "ft":
-				totalRound *= 3.2808;
-				differenceRound	*= 3.2808;
+				total *= 3.2808;
+				difference	*= 3.2808;
 				break;
 			case "yd":
-				totalRound *=  1.0936;
-				differenceRound	*=  1.0936;
+				total *=  1.0936;
+				difference	*=  1.0936;
 				break;
 			case "mi":
-				totalRound *=  0.00062137;
-				differenceRound	*=  0.00062137;
+				total *=  0.00062137;
+				difference	*=  0.00062137;
 				break;
 			case "km":
-				totalRound /=  1000;
-				differenceRound	/=  1000;
+				total /=  1000;
+				difference	/=  1000;
+				break;
+			case "m":
+				total /=1;
+				difference != 1;
 				break;
 			default:
 				console.error("Unit: "+measureUnit+" is not supportet by Leaflet.Measure");
 		}
 
-		totalRound = Math.round(totalRound, 2);
-		differenceRound = Math.round(differenceRound, 2);
+		totalRound = Math.round(total, 2);
+		differenceRound = Math.round(difference, 2);
 
 		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + measureUnit + '</div>';
 		if (differenceRound > 0 && totalRound != differenceRound) {
