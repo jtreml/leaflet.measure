@@ -52,6 +52,8 @@ L.Control.Measure = L.Control.extend({
 			.on(this._map, 'click', this._mouseClick, this)
 			.on(this._map, 'dblclick', this._finishPath, this)
 			.on(document, 'keydown', this._onKeyDown, this);
+      
+    	this._map.fire('measure:measurestart', { layerType: this.type });
 
 		if(!this._layerPaint) {
 			this._layerPaint = L.layerGroup().addTo(this._map);	
@@ -70,6 +72,8 @@ L.Control.Measure = L.Control.extend({
 			.off(this._map, 'mousemove', this._mouseMove, this)
 			.off(this._map, 'click', this._mouseClick, this)
 			.off(this._map, 'dblclick', this._mouseClick, this);
+
+    	this._map.fire('measure:measurestop', { layerType: this.type });
 
 		if(this._doubleClickZoom) {
 			this._map.doubleClickZoom.enable();
