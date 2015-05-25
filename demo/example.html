@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../leaflet/dist/leaflet.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="../leaflet/dist/leaflet.ie.css" /><![endif]-->
+		<link rel="stylesheet" href="../leaflet.measure/leaflet.measure.css" />
+
+		<script src="../leaflet/build/deps.js"></script>
+		<script src="../leaflet/debug/leaflet-include.js"></script>
+		<script src="../leaflet.measure/leaflet.measure.js"></script>
+	</head>
+	
+	<body>
+		<div id="map" style="width: 800px; height: 600px;"></div>
+
+		<script type="text/javascript">
+			var layerOsm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				subdomains: ["a", "b", "c"],
+				maxZoom: 18
+			});
+			
+			var map = new L.Map('map').addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
+
+			var measureControl = new L.Control.Measure({
+				position: 'topleft',
+				measureUnit: 'km'
+			});
+			measureControl.addTo(map);
+
+			map.on('measure:measurestop', function(e) {
+				console.log("stop");
+				console.log(e);
+			});
+			map.on('measure:measurestart', function(e) {
+				console.log("start");
+				console.log(e);
+			});
+			map.on('measure:finishedpath', function(e) {
+				console.log("finishedpath");
+				console.log(e);
+			});
+			measureControl.displayLine([new L.LatLng(40.424723, -3.716153),new L.LatLng(41.524724, -2.886153),new L.LatLng(39.624724, -4.916153)]);
+			measureControl.options.measureUnit = "nm"
+			measureControl.displayLine([new L.LatLng(42.424723, -1.716153),new L.LatLng(43.524724, -1.886153),new L.LatLng(42.624724, -3.916153)]);
+
+		</script>
+	</body>
+</html>
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Measure Demo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
+  <script src="https://github.com/kartenkarsten/hashComponent/raw/master/hash-component.js"></script>
+  <script src="https://github.com/kartenkarsten/hashComponent/raw/master/mapposition-hash-connector.js"></script>
+  <script src="../measure-hash-connector.js"></script>
+  <link rel="stylesheet" href="../leaflet.measure/leaflet.measure.css"></script>
+  <script src="../leaflet.measure/leaflet.measure.js"></script>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    html, body, #map {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+	var attr_osm = 'Map data &copy; <a href="http://openstreetmap.org/">OpenStreetMap</a> contributors';
+	var osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {opacity: 0.7, attribution: [attr_osm].join(', ')});
+
+	var map = new L.Map('map').addLayer(osm).setView(new L.LatLng(52.265, 10.524), 7); 
+
+	var hash = new HashComponent();
+
+	var measureControl = new L.Control.Measure({
+		position: 'topleft',
+		measureUnit: 'km'
+	});
+	measureControl.addTo(map);
+
+	// Assuming your map instance is in a variable called map
+	new L.MapPositionConnector(map,hash);
+	new L.MeasureControlConnector(map,hash,measureControl);
+  </script>
+</body>
+</html>
+

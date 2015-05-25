@@ -12,6 +12,27 @@ L.Control.Measure = L.Control.extend({
 
 		return container;
 	},
+	
+	// creates a line without user interaction
+	displayLine: function(latLngs) {
+		if (!this._measuring) {
+			this._toggleMeasure();
+			//this._startMeasuring();
+		}
+
+		for (index = 0; index < latLngs.length; ++index) {
+			var e = {latlng: latLngs[index]};
+			this._mouseClick(e);
+		}
+		this._finishPath();
+	},
+
+	// stops measure and clears lines
+	clearLines: function() {
+		if (this._measuring) {
+			this._toggleMeasure();
+		}
+	},
 
 	_createButton: function (html, title, className, container, fn, context) {
 		var link = L.DomUtil.create('a', className, container);
@@ -53,7 +74,7 @@ L.Control.Measure = L.Control.extend({
 			.on(this._map, 'dblclick', this._finishPath, this)
 			.on(document, 'keydown', this._onKeyDown, this);
       
-    	this._map.fire('measure:measurestart', { layerType: this.type });
+		this._map.fire('measure:measurestart', { layerType: this.type });
 
 		if(!this._layerPaint) {
 			this._layerPaint = L.layerGroup().addTo(this._map);	
@@ -119,6 +140,8 @@ L.Control.Measure = L.Control.extend({
 		if(!e.latlng) {
 			return;
 		}
+		
+		this._points.push(e.latlng);
 
 		// If we have a tooltip, update the distance and create a new tooltip, leaving the old one exactly where it is (i.e. where the user has clicked)
 		if(this._lastPoint && this._tooltip) {
@@ -180,6 +203,13 @@ L.Control.Measure = L.Control.extend({
 		}
 		if(this._layerPaint && this._layerPaintPathTemp) {
 			this._layerPaint.removeLayer(this._layerPaintPathTemp);
+		}
+
+		this._map.fire('measure:finishedpath', { layerType: this.type , points: this._points, measureUnit: this.options.measureUnit});
+
+		//clear _points
+		if (this._points) {
+			this._points.length=0;
 		}
 
 		// Reset everything
