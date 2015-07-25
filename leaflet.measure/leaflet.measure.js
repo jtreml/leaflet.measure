@@ -94,7 +94,11 @@ L.Control.Measure = L.Control.extend({
 				dashArray: '6,3'
 			}).addTo(this._layerPaint);
 		} else {
-			this._layerPaintPathTemp.spliceLatLngs(0, 2, this._lastPoint, e.latlng);
+			if (this._layerPaintPathTemp.spliceLatLngs) {
+				this._layerPaintPathTemp.spliceLatLngs(0, 2, this._lastPoint, e.latlng);
+			} else {
+				this._layerPaintPathTemp.setLatLngs([this._lastPoint, e.latlng]);
+			}
 		}
 
 		if(this._tooltip) {
