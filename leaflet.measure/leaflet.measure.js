@@ -1,7 +1,9 @@
 L.Control.Measure = L.Control.extend({
 	options: {
 		position: 'topleft',
-        measureUnit: 'm'
+        measureUnit: 'm',
+		//number of decimal digets
+        measureUnitPrecision: 1
 	},
 
 	onAdd: function (map) {
@@ -244,6 +246,7 @@ L.Control.Measure = L.Control.extend({
 		var totalRound;
 		var differenceRound;
 		var measureUnit = this.options.measureUnit;
+		var precision = this.options.measureUnitPrecision;
 
 		//extensible option for multiple units
 		switch(measureUnit){
@@ -275,8 +278,8 @@ L.Control.Measure = L.Control.extend({
 				console.error("Unit: "+measureUnit+" is not supportet by Leaflet.Measure");
 		}
 
-		totalRound = Math.round(total, 2);
-		differenceRound = Math.round(difference, 2);
+		totalRound = total.toFixed(precision);
+		differenceRound = difference.toFixed(precision);
 
 		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + measureUnit + '</div>';
 		if (differenceRound > 0 && totalRound != differenceRound) {
