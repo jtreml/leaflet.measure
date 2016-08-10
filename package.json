@@ -1,5 +1,5 @@
 {
-    "name": "leaflet-measure",
+    "name": "leaflet-measure2",
     "version": "0.0.1",
     "description": "Adds interactive distance measuring to leaflet",
     "main": "./dist/Leaflet.Measure.js",
